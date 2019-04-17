@@ -1,0 +1,90 @@
+<div class="mb-5 row">
+	<div class="col-md-9 my-3">
+		<ul class="nav nav-pills btn-lg bg-light">
+			<li class="nav-item ml-1 ">
+				<a class="nav-link active" href="/showTopics/all">全部</a>
+			</li>
+			<% listBoard.forEach(board => { %>
+			<li class="nav-item">
+				<a class="nav-link" href="/showTopics/<%= board.id %>"> <%= board.board_name %> </a>
+			</li>
+			<% }) %>
+		</ul>
+
+		<div class="list-group">
+			<% if(allTopic.length === 0) { %>
+				<div class="my-3 p-2 bg-warning">
+					<h2 class="text-danger font-weight-bold m-2"> 此论坛还没帖子，请发表或者联系管理员 </h2>
+					<div class="mt-4 mb-2 ml-2">
+						<a href="/postTopic" class="text-primary bg-light btn-lg my-3"> 发帖 </a>
+					</div>
+				</div>
+			<% } else { %>
+				<% if(id === "all") { %>
+					<ul class="list-group flex">
+						<% allTopic.forEach(topic => { %>
+						<li class="list-group-item" style="font-size: 24px">
+							<a class="topic-link" href="#">话题：<%= topic.title %></a>
+						</li>
+						<% })%>
+					</ul>
+				<% } else { %>
+					<ul class="list-group flex">
+						<% listTopic.forEach(topic => { %>
+						<li class="list-group-item" style="font-size: 24px">
+							<a class="topic-link" href="#">话题：<%= topic.title %></a>
+						</li>
+						<% })%>
+					</ul>
+				<% } %>
+			<% } %>
+
+		</div>
+
+
+	</div>
+
+	<div class="col-md-3 my-3">
+		<div class="w-100 bg-light">
+			<div class='panel'>
+				<div class='header text-left p-2 bg'  style="background-color: #bbbbbb ">
+					<h5 class="">个人信息</h5>
+				</div>
+
+				<% if(user) {%>
+				<div class='inner text-left p-2'>
+					<div class="">
+					</div>
+					<div class="mt-2">
+						<ul>
+							<li class="user my-1">email: <%= user.email %></li>
+						</ul>
+
+					</div>
+				</div>
+				<% } else {%>
+				<div class='box'>
+					<h4 class="text-primary">欢迎来到BBS</h4>
+					<p>您尚未登录，请<a href="/signIn" class="">登录</a></p>
+					<p>没有账号？点击<a href="/signUp" class="">注册</a></p>
+				</div>
+				<% } %>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+
+	// $( '#top_header .nav a' ).on( 'click', function () {
+	//     $( '#top_header .nav' ).find( 'li.active' ).removeClass( 'active' );
+	//     $( this ).addClass( 'active' );
+	// });
+	// alert("123ssdfnj")
+
+	$(document).ready(function(e) {
+		$('li .active').removeClass('active');
+		$('a[href="' + location.pathname + '"]').closest('a').addClass('active');
+	});
+
+</script>

@@ -22,6 +22,18 @@ const object = {
         return rows;
     },
 
+    async userLogin (data) {
+        const sql = 'select * from user where email=? and password=?';
+        const [rows, fields] = await promisePool.query(sql, data);
+        return rows;
+    },
+
+    async getUserByEmail (email) {
+        const sql = "select * from user where email=?";
+        const [rows, fields] = await promisePool.query(sql, email);
+        return rows;
+    },
+
 };
 
 module.exports = object;

@@ -1,0 +1,42 @@
+<form action="/signUp" accept-charset="UTF-8" method="post" class="needs-validation" novalidate>
+    <div id='signUpBox'>
+        <div class="auth-form-header p-0">
+            <h1>Sign up to BBS</h1>
+            <div id="js-flash-container">
+                <div class="flash flash-full flash-error">
+                    <div class="error_msg" style="color:#ff0000">
+                        请填写所有信息并确保无误
+                        <button type="button" id="closeButton" class="close d-inline-block" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="auth-form-body mt-3">
+            <label for="signUpName" id="username_label"> Username </label>
+            <input required type="name" name="username" id="signUpName" class="form-control input-block" onchange="listenSignUsername()" tabindex="1" autocapitalize="off" autocorrect="off" autofocus="autofocus" />
+
+            <label for="signUpEmail" id="email_label"> Email address </label>
+            <input required type="email" name="email" id="signUpEmail" class="form-control input-block password" onchange="listenSignEmail()" tabindex="2" autocapitalize="off" autocorrect="off" autofocus="autofocus" />
+
+            <label id="password_label" for="signUpPassword"> Password </label>
+            <input required type="password" name="password" id="signUpPassword" onchange="listenSignPassword()" class="form-control form-control input-block" tabindex="3" />
+
+
+            <label id="rePassword_label" for="signUpPassword2"> RePassword </label>
+            <input required type="password" name="password" id="signUpPassword2" onchange="listenSignRePassword()" class="form-control form-control input-block" tabindex="4" />
+
+            <button type="button" id="buttonSign" tabindex="5" class="btn btn-primary btn-block" /> Sign up </button>
+
+    </div>
+</form>
+
+<p class="instruction text-center">
+  已有账号？
+  请 <a href="/signIn" tabindex="6">登录</a>
+</p>
+
+
+
