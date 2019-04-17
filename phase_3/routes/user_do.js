@@ -47,7 +47,7 @@ router.post('/signUp', async(ctx) => {
 			const addUserDataPromise = editUser.addUser(data);
 			await addUserDataPromise;
 
-			const usersPromise = editUser.getUsernameByEmail(email1);
+			const usersPromise = editUser.getUserByEmail(email1);
 			const users = await usersPromise;
 			const user = users[0];
 
@@ -80,7 +80,7 @@ router.post('/signIn', async(ctx) => {
 	const rowsPromise = editUser.userLogin(data);
 	const rows = await rowsPromise;
 
-	const usersPromise = editUser.getUsernameByEmail(email);
+	const usersPromise = editUser.getUserByEmail(email);
 	const users = await usersPromise;
 	const user = users[0];
 
