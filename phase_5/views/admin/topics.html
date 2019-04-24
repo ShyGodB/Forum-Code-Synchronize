@@ -1,0 +1,252 @@
+
+<div class="m-2 p-2">
+	<ul class="nav btn-lg bg-light" id="nav_ul">
+		<li class="nav-item">
+			<a class="nav-link active" data-id="all" href="/admin/manageTopics/all"> 全部 </a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link active" data-id="top" href="/admin/manageTopics/top"> 置顶 </a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link active" data-id="star" href="/admin/manageTopics/star"> 精华 </a>
+		</li>
+		<% listBoard.forEach(board => { %>
+			<li class="nav-item">
+				<a class="nav-link" data-id="<%= board.id %>" href="/admin/manageTopics/<%= board.id %>"> <%= board.board_name %> </a>
+			</li>
+		<% }) %>
+	</ul>
+
+	<table class="table table-hover bg-light text-dark mt-3">
+		<thead class="thead-dark">
+			<tr>
+				<th scope="col"> id </th>
+				<th scope="col"> title </th>
+				<th scope="col"> board_name </th>
+				<th scope="col"> Top? </th>
+				<th scope="col"> Star? </th>
+				<th scope="col"> edit </th>
+			</tr>
+		</thead>
+		<tbody>
+			<% if(id === "all") { %>
+				<% allTopic.forEach(topic => { %>
+					<tr>
+						<th scope="row"> <%= topic.id %> </th>
+						<td> <%= topic.title %> </td>
+						<td> <%= topic.board_name %> </td>
+						<td>
+							<% if(topic.top === 1) {%>
+								True
+							<%} else {%>
+								False
+							<% } %>
+						</td>
+						<td>
+							<% if(topic.star === 1) {%>
+								True
+							<%} else {%>
+								False
+							<% } %>
+						</td>
+						<td>
+							<button type="button" data-id="<%= topic.id %>" class="btn btn-danger text-light mr-3"> Delete </button>
+
+							<% if(topic.top === 1) {%>
+								<button type="button" data-id="<%= topic.id %>" class="btn btn-warning text-light mr-3"> Cancel top </button>
+							<%} else {%>
+								<button type="button" data-id="<%= topic.id %>" class="btn btn-success text-light mr-3"> Set top </button>
+							<% } %>
+
+
+							<% if(topic.star === 1) {%>
+								<button type="button" data-id="<%= topic.id %>" class="btn btn-warning text-light mr-3"> Cancel star </button>
+							<%} else {%>
+								<button type="button" data-id="<%= topic.id %>" class="btn btn-success text-light mr-3"> Set star </button>
+							<% } %>
+						</td>
+					</tr>
+				<% })%>
+			<% } else if(id === 'star'){ %>
+				<% if (listStarTopic.length === 0) { %>
+					<tr>
+						<th scope="row"> -- </th>
+						<td> ---- </td>
+						<td> ----------- </td>
+						<td> ----- </td>
+						<td> ---- </td>
+						<td> ---- </td>
+					</tr>
+				<% } else { %>
+					<% listStarTopic.forEach(topic => { %>
+						<tr>
+							<th scope="row"> <%= topic.id %> </th>
+							<td> <%= topic.title %> </td>
+							<td> <%= topic.board_name %> </td>
+							<td>
+								<% if(topic.top === 1) {%>
+									True
+								<%} else {%>
+									False
+								<% } %>
+							</td>
+							<td>
+								<% if(topic.star === 1) {%>
+									True
+								<%} else {%>
+									False
+								<% } %>
+							</td>
+							<td>
+								<button type="button" data-id="<%= topic.id %>" class="text-primary btn btn-danger text-light mr-3"> Delete </button>
+								<button type="button" data-id="<%= topic.id %>" class="text-primary btn btn-warning text-light"> Cancel star </button>
+							</td>
+						</tr>
+					<% })%>
+				<% } %>
+			<% } else if(id === 'top'){ %>
+				<% if (listTopTopic.length === 0) { %>
+					<tr>
+						<th scope="row"> -- </th>
+						<td> ---- </td>
+						<td> ----------- </td>
+						<td> ----- </td>
+						<td> ---- </td>
+						<td> ---- </td>
+					</tr>
+				<% } else { %>
+					<% listTopTopic.forEach(topic => { %>
+						<tr>
+							<th scope="row"> <%= topic.id %> </th>
+							<td> <%= topic.title %> </td>
+							<td> <%= topic.board_name %> </td>
+							<td>
+								<% if(topic.top === 1) {%>
+									True
+								<%} else {%>
+									False
+								<% } %>
+							</td>
+							<td>
+								<% if(topic.top === 1) {%>
+								True
+								<%} else {%>
+								False
+								<% } %>
+							</td>
+							<td>
+								<button type="button" data-id="<%= topic.id %>" class="text-primary btn btn-danger text-light mr-3"> Delete </button>
+								<button type="button" data-id="<%= topic.id %>" class="text-primary btn btn-warning text-light"> Cancel top </button>
+							</td>
+						</tr>
+					<% })%>
+				<% } %>
+			<% } else { %>
+					<% if(listTopic.length === 0) { %>
+						<tr>
+							<th scope="row"> -- </th>
+							<td> ---- </td>
+							<td> ----------- </td>
+							<td> ----- </td>
+							<td> ---- </td>
+							<td> ---- </td>
+						</tr>
+					<% } else {%>
+						<% listTopic.forEach(topic => { %>
+							<tr>
+								<th scope="row"> <%= topic.id %> </th>
+								<td> <%= topic.title %> </td>
+								<td> <%= topic.board_name %> </td>
+								<td>
+									<% if(topic.top === 1) {%>
+										True
+									<%} else {%>
+										False
+									<% } %>
+								</td>
+								<td>
+									<% if(topic.star === 1) {%>
+										True
+									<%} else {%>
+										False
+									<% } %>
+								</td>
+								<td>
+									<button type="button" data-id="<%= topic.id %>" class="text-primary btn btn-danger text-light mr-3"> Delete </button>
+
+									<% if(topic.top === 1) {%>
+										<button type="button" data-id="<%= topic.id %>" class="text-primary btn btn-warning text-light mr-3"> Cancel top </button>
+									<%} else {%>
+										<button type="button" data-id="<%= topic.id %>" class="text-primary btn btn-success text-light mr-3"> Set top </button>
+									<% } %>
+
+									<% if(topic.star === 1) {%>
+										<button type="button" data-id="<%= topic.id %>" class="text-primary btn btn-warning text-light mr-3"> Cancel star </button>
+									<%} else {%>
+										<button type="button" data-id="<%= topic.id %>" class="text-primary btn btn-success text-light mr-3"> Set star </button>
+									<% } %>
+								</td>
+							</tr>
+						<% }) %>
+					<% } %>
+			<% } %>
+		</tbody>
+	</table>
+</div>
+
+<script>
+
+	let buttonArray = document.getElementsByTagName("button");
+	for(let i = 0; i < buttonArray.length; i++) {
+		buttonArray[i].onclick = function () {
+			const buttonValue = this.innerHTML.substring(1,this.innerHTML.length-1);
+			let buttonDataId = $(this).attr("data-id");
+			const url = "/admin/manageTopics/all";
+			fetch(url, {
+				method: 'POST',
+				headers: {
+					'Accept': 'application/json',
+					'Content-Type': 'application/json',
+					'X-Requested-With': 'XMLHttpRequest'
+				},
+				body: JSON.stringify({
+					// id: id,
+					buttonValue: buttonValue,
+					buttonDataId: buttonDataId
+				})
+			})
+					.then(function(response) {
+						return response.json();
+					})
+					.then(myJson => {
+						if(myJson.msg === "Delete success") {
+
+							$(this.parentNode.parentNode).remove();
+
+						} else if (myJson.msg === "Set top success") {
+
+							$(this).html(" Cancel top ");
+							$(this).toggleClass("btn-success btn-warning");
+
+						} else if (myJson.msg === "Cancel top success") {
+
+							$(this).html(" Set top ");
+							$(this).toggleClass("btn-warning btn-success");
+
+						} else if (myJson.msg === "Set star success") {
+
+							$(this).html(" Cancel star ");
+							$(this).toggleClass("btn-success btn-warning");
+
+						} else if (myJson.msg === "Cancel star success") {
+
+							$(this).html(" Set star ");
+							$(this).toggleClass("btn-warning btn-success");
+						}
+					});
+		}
+	}
+
+</script>
+
+
