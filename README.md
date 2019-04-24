@@ -12,7 +12,7 @@
 
 cd 到对应的文件夹， 例如：
 
-> cd phase_2 
+> cd phase_1|2|3|4|5
 
 >  npm start
 
