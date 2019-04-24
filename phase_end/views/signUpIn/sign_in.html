@@ -1,0 +1,36 @@
+<form action="/signIn" accept-charset="UTF-8" method="post" class="needs-validation" novalidate
+      xmlns="http://www.w3.org/1999/html">
+    <div id='signUpBox'>
+        <div class="auth-form-header p-0">
+            <h1 id="title">Sign in to BBS</h1>
+            <div id="js-flash-container">
+                <div class="flash flash-full flash-error">
+                    <div class="error_msg">
+                        Incorrect username or password.
+                        <button type="button" id="closeButton" class="close d-inline-block" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="auth-form-body mt-3">
+            <label for="loginEmail" id="labelEmail"> Email address </label>
+            <input type="email" name="email" id="loginEmail" class="form-control input-block"  onchange="listenEmail()" tabindex="1" autofocus="autofocus" aria-describedby="emailHelp" required/>
+
+            <label for="loginPassword" id="labelPassword"> Password </label>
+<!--            <label class="label-link text-danger" href="#">Forgot password?</label>-->
+            <input type="password" name="password" id="loginPassword" class="form-control input-block" onchange="listenPassword()" tabindex="2" required/>
+
+
+            <button id="btn_login" type="button" class="btn btn-primary btn-block" tabindex="3" /> Sign in </button>
+        </div>
+        
+    </div>
+</form>
+
+<p class="instruction text-center">
+  没有账号？
+  请 <a href="/signUp" tabindex="4">注册</a>
+</p>

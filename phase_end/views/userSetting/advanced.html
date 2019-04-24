@@ -1,0 +1,49 @@
+
+
+<section>
+	<div class="col-9 float-right pr-1" style="min-height: 660px">
+		<div class="w-100 m-1">
+			<!-- 按钮：用于打开模态框 -->
+			<button type="button" class="btn btn-primary btn-block my-3" data-toggle="modal" data-target="#myModal">
+				修改密码
+			</button>
+			<!-- 模态框 -->
+			<div class="modal fade" id="myModal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">修改密码</h4>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+						<div class="modal-body">
+							<form action="/settings/advanced" accept-charset="UTF-8" method="post">
+								<div id='signUpBox'>
+									<div class="auth-form-body mt-3">
+										<label for="oldPassword"> 原密码 </label>
+										<input required type="password" name="oldPassword" id="oldPassword"
+											class="form-control input-block" tabindex="1" autocapitalize="off"
+											autocorrect="off" autofocus="autofocus" />
+										<label for="newPassword1"> 新密码 </label>
+										<input required type="password" name="newPassword1" id="newPassword1"
+											class="form-control form-control input-block" tabindex="2" />
+
+										<label for="newPassword2"> 新密码确认 </label>
+										<input required type="password" name="newPassword2" id="newPassword2"
+											class="form-control form-control input-block" tabindex="2" />
+
+										<input type="submit" name="commit" value="确定" tabindex="3"
+											class="btn btn-primary btn-block" data-disable-with="Signing in…" />
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">本帝不改了</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+

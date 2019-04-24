@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Web Practice</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+			integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+			crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+			integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+			crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+			integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+			crossorigin="anonymous"></script>
+</head>
+
+<body class="bg-secondary">
+<header>
+	<% include ../partials/header_navbar.html %>
+</header>
+
+<main class="mt-2">
+	<section>
+		<div class="container-fluid px-5" style="min-height:50rem">
+			<div class="mb-3">
+				<ul class="list-group">
+					<li class="list-group-item">
+						<h1>
+							话题：<%= topic[0].title %>
+						</h1>
+						<h3>
+							标签：<%= topic[0].topic_type %>
+						</h3>
+						<div class="thinPlaceholderLine"></div>
+						<p>---------------------------------------------------------------------------------------------------------------------------------------------------</p>
+						<p>正文：<%= topic[0].article %></p>
+					</li>
+				</ul>
+			</div>
+
+			<div class="mb-3">
+				<ul class="list-group" id="messages">
+					<% listMessage.forEach(message => { %>
+						<% if(user.last_msg === message.message_content) { %>
+							<li class="list-group-item text-danger font-weight-bold" style="background:greenyellow">
+								<a class="user_avatar pull-left" href="/userHome" style="width:28px;height:28px">
+									<img src="../../<%= message.message_picpath %>" title="<%= message.message_people %>" style="width:28px;height:28px">
+								</a>
+								<%= message.message_content %>
+							</li>
+						<% } else { %>
+							<li class="list-group-item">
+								<a class="user_avatar pull-left" href="/userHome" style="width:28px;height:28px">
+									<img src="../../<%= message.message_picpath %>" title="<%= message.message_people %>" style="width:28px;height:28px">
+								</a>
+								<%= message.message_content %>
+							</li>
+						<% } %>
+					<% }) %>
+				</ul>
+			</div>
+
+
+			<div class="comments">
+				<div class="header p-1" style="background-color:#f6f6f6">
+					共有 <span class="w-100" id="num_msg"> <%= listMessage.length %> </span> 条留言
+				</div>
+
+				<div>
+					<% if(user) { %>
+						<form action="/<%= topic[0].id %>/reply" method="post">
+							<div class="my-2">
+								<textarea class="form-control overflow-auto" id="userMessage" style="min-height: 20rem" name="message_content" contenteditable="true"></textarea>
+							</div>
+							<div class="my-2">
+								<button class="btn btn-primary" type="button" id="btn" data-id="<%= id %>">Submit</button>
+							</div>
+						</form>
+					<% } else {%>
+						<form action="/<%= topic[0].id %>/reply" method="post">
+							<div class="my-2">
+								<textarea class="form-control overflow-auto"style="min-height:20rem;font-size:28px;" disabled>
+
+
+									登录后可留言
+								</textarea>
+							</div>
+							<div class="my-2">
+								<button class="btn btn-primary" type="button" disabled>Submit</button>
+							</div>
+						</form>
+					<% } %>
+				</div>
+			</div>
+		</div>
+	</section>
+</main>
+
+
+<script>
+
+	// 获取留言的数量，即id="messages"的ul中li的个数
+	const length = document.getElementById("messages").getElementsByTagName("li").length;
+	$("#btn").click(function(event){
+		// 获取id ， 此id === topic的id
+		let id = $("#btn").attr("data-id");
+		// 获取用户输入的留言内容
+		let userMessage = $("#userMessage").val();
+		const url = '/showTopics/all/' + id;
+		fetch(url, {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+				'X-Requested-With': 'XMLHttpRequest'
+			},
+			body: JSON.stringify({
+				id: id,
+				message: userMessage,
+			})
+		})
+		.then(function(response) {
+			return response.json();
+		})
+		.then(function(myJson) {
+			// 如果有留言
+			if(length !== 0) {
+				// 设置背景颜色为空
+				document.getElementsByTagName("li")[6].style.background = "";
+				// 移除字体样式
+				document.getElementsByTagName("li")[6].classList.remove("text-danger", "font-weight-bold");
+			}
+			// 新定义一个标签li，用来存储新的留言
+			const newMessageLi = `
+				<li class="list-group-item text-danger font-weight-bold" style="background:greenyellow">
+					<a class="user_avatar pull-left" href="/userHome" style="width:28px;height:28px">
+						<img src="../../${myJson[3]}" title="${myJson[2]}" style="width:28px;height:28px">
+					</a>
+					${myJson[1]}
+				</li>
+			`;
+			// 将留言加入到页面中
+			$("#messages").prepend(newMessageLi);
+		});
+
+		// 使留言的数量 ++
+		document.getElementById("num_msg").innerHTML ++;
+		// 清空文本域
+		document.getElementById("userMessage").value = '';
+	});
+
+</script>
+
+</body>
+
+</html>
+
